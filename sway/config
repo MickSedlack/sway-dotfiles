@@ -2,7 +2,7 @@ set $mod Mod4
 floating_modifier $mod
 bindsym $mod+Shift+c reload
 bindsym $mod+q kill
-font pango:monospace 8
+font pango:CaskaydiaCove Nerd Font Mono 8
 
 # focus
 bindsym $mod+j focus left
@@ -93,22 +93,32 @@ mode "resize" {
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
+bindsym $mod+c mode "launcher"
+mode "launcher" {
+	bindsym $mod+f exec zen
+	bindsym $mod+t exec thunar
+	bindsym $mod+h exec alacritty -e htop
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
+}
 
 bar {
     status_command i3status
     position bottom
-    font Ubuntu Mono, 12px
-    separator_symbol " // "
+    font CaskaydiaCove Nerd Font Mono, 14px
+    separator_symbol " | "
     mode dock
 
     colors {
-        statusline          #78da59
-        background          #202020
-        separator           #fff32e
+        statusline          #00ff40
+        background          #242124
+        separator           #FF0080
 
                             #border #bg     #txt
-        focused_workspace   #202020 #202020 #66FF66
-        inactive_workspace  #202020 #202020 #8C8C8C
+        focused_workspace   #242124 #242124 #FF0080
+        inactive_workspace  #242124 #242124 #8C8C8C
         active_workspace    #777F8B #777F8B #ecedee
         urgent_workspace    #DEDFE3 #DEDFE3 #767E8A
     }
@@ -127,9 +137,8 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym Print exec grim ~/Pictures/screenshots/$(date --iso-8601=ns).png
 
 bindsym $mod+Return exec tilix
+bindsym $mod+x exec ~/.config/wofi/wofi-powermenu.sh
+bindsym $mod+Shift+Escape exec exec zenity --question --text="Close the session?" && swaymsg exit
 bindsym $mod+d exec wofi --show drun
-bindsym $mod+Shift+f exec zen
-bindsym $mod+t exec Thunar
-bindsym $mod+y exec /usr/sbin/yast2
 bindsym Control+$mod+l exec waylock
 exec_always --no-startup-id ~/.config/i3/autotiling
